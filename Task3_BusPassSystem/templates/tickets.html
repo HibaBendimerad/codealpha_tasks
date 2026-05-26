@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All Tickets — CloudBus</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f0f4f8; }
+        header { background: linear-gradient(135deg, #1a73e8, #0d47a1); color: white; padding: 30px 40px; text-align: center; }
+        header h1 { font-size: 2em; }
+        nav { background: #0d47a1; padding: 12px 40px; display: flex; gap: 20px; }
+        nav a { color: white; text-decoration: none; font-weight: 500; padding: 6px 16px; border-radius: 20px; }
+        nav a:hover { background: rgba(255,255,255,0.2); }
+        .container { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
+        h2 { color: #1a73e8; margin-bottom: 25px; }
+        .ticket-card { background: white; border-radius: 12px; padding: 20px 25px; margin-bottom: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.06); display: flex; justify-content: space-between; align-items: center; }
+        .ticket-left { display: flex; flex-direction: column; gap: 6px; }
+        .ticket-number { font-size: 0.85em; color: #888; font-family: monospace; }
+        .route { font-size: 1.2em; font-weight: 700; color: #1a73e8; }
+        .passenger { color: #555; }
+        .ticket-right { text-align: right; }
+        .price { font-size: 1.3em; font-weight: 700; color: #2e7d32; }
+        .status { background: #e8f5e9; color: #2e7d32; padding: 4px 12px; border-radius: 20px; font-size: 0.85em; font-weight: 600; margin-top: 5px; display: inline-block; }
+        .empty { text-align: center; padding: 60px; color: #888; font-size: 1.1em; }
+        .back-btn { display: inline-block; margin-bottom: 20px; padding: 10px 20px; background: #1a73e8; color: white; border-radius: 8px; text-decoration: none; font-weight: 500; }
+    </style>
+</head>
+<body>
+    <header><h1>🚌 CloudBus</h1></header>
+    <nav>
+        <a href="/">🏠 Home</a>
+        <a href="/tickets">🎫 All Tickets</a>
+    </nav>
+    <div class="container">
+        <a href="/" class="back-btn">← Back to Routes</a>
+        <h2>🎫 All Booked Tickets ({{ tickets|length }})</h2>
+        {% if tickets %}
+            {% for ticket in tickets %}
+            <div class="ticket-card">
+                <div class="ticket-left">
+                    <span class="ticket-number">{{ ticket.ticket_number }}</span>
+                    <span class="route">{{ ticket.origin }} → {{ ticket.destination }}</span>
+                    <span class="passenger">👤 {{ ticket.passenger_name }} | 📧 {{ ticket.passenger_email }}</span>
+                    <span class="passenger">🕐 {{ ticket.departure_time }} → {{ ticket.arrival_time }} | 💺 Seat {{ ticket.seat_number }}</span>
+                </div>
+                <div class="ticket-right">
+                    <div class="price">{{ ticket.price }} DZD</div>
+                    <div class="status">✅ {{ ticket.status }}</div>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="empty">No tickets booked yet. <a href="/">Book your first ticket!</a></div>
+        {% endif %}
+    </div>
+</body>
+</html>

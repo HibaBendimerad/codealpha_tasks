@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CloudBus — Online Bus Pass System</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f0f4f8; color: #333; }
+        header { background: linear-gradient(135deg, #1a73e8, #0d47a1); color: white; padding: 30px 40px; text-align: center; }
+        header h1 { font-size: 2.5em; margin-bottom: 8px; }
+        header p { font-size: 1.1em; opacity: 0.9; }
+        nav { background: #0d47a1; padding: 12px 40px; display: flex; gap: 20px; }
+        nav a { color: white; text-decoration: none; font-weight: 500; padding: 6px 16px; border-radius: 20px; transition: background 0.3s; }
+        nav a:hover { background: rgba(255,255,255,0.2); }
+        .container { max-width: 1100px; margin: 40px auto; padding: 0 20px; }
+        h2 { color: #1a73e8; margin-bottom: 25px; font-size: 1.8em; }
+        .routes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+        .route-card { background: white; border-radius: 12px; padding: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); transition: transform 0.3s; }
+        .route-card:hover { transform: translateY(-5px); }
+        .route-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .cities { font-size: 1.3em; font-weight: 700; color: #1a73e8; }
+        .arrow { font-size: 1.5em; color: #1a73e8; }
+        .route-info { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+        .info-row { display: flex; justify-content: space-between; font-size: 0.95em; }
+        .info-label { color: #888; }
+        .info-value { font-weight: 600; }
+        .price { font-size: 1.4em; font-weight: 700; color: #2e7d32; }
+        .seats { background: #e8f5e9; color: #2e7d32; padding: 4px 10px; border-radius: 20px; font-size: 0.85em; }
+        .book-btn { width: 100%; padding: 12px; background: linear-gradient(135deg, #1a73e8, #0d47a1); color: white; border: none; border-radius: 8px; font-size: 1em; font-weight: 600; cursor: pointer; transition: opacity 0.3s; }
+        .book-btn:hover { opacity: 0.9; }
+        footer { text-align: center; padding: 30px; color: #888; margin-top: 60px; border-top: 1px solid #ddd; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🚌 CloudBus</h1>
+        <p>Cloud-Based Bus Pass & Ticket Booking System — CodeAlpha Internship</p>
+    </header>
+    <nav>
+        <a href="/">🏠 Home</a>
+        <a href="/tickets">🎫 All Tickets</a>
+    </nav>
+    <div class="container">
+        <h2>Available Routes</h2>
+        <div class="routes-grid">
+            {% for route in routes %}
+            <div class="route-card">
+                <div class="route-header">
+                    <span class="cities">{{ route.origin }}</span>
+                    <span class="arrow">→</span>
+                    <span class="cities">{{ route.destination }}</span>
+                </div>
+                <div class="route-info">
+                    <div class="info-row">
+                        <span class="info-label">🕐 Departure</span>
+                        <span class="info-value">{{ route.departure_time }}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">🕐 Arrival</span>
+                        <span class="info-value">{{ route.arrival_time }}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">💺 Available Seats</span>
+                        <span class="seats">{{ route.available_seats }} seats</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">💰 Price</span>
+                        <span class="price">{{ route.price }} DZD</span>
+                    </div>
+                </div>
+                <a href="/book/{{ route.id }}">
+                    <button class="book-btn">Book Now</button>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <footer>
+        <p>☁️ CloudBus — Cloud-Based Bus Pass System | CodeAlpha Internship 2026</p>
+    </footer>
+</body>
+</html>

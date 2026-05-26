@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Booking Confirmed — CloudBus</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f0f4f8; }
+        header { background: linear-gradient(135deg, #1a73e8, #0d47a1); color: white; padding: 30px 40px; text-align: center; }
+        nav { background: #0d47a1; padding: 12px 40px; display: flex; gap: 20px; }
+        nav a { color: white; text-decoration: none; font-weight: 500; padding: 6px 16px; border-radius: 20px; }
+        nav a:hover { background: rgba(255,255,255,0.2); }
+        .container { max-width: 600px; margin: 50px auto; padding: 0 20px; }
+        .success-banner { background: #e8f5e9; border: 2px solid #4caf50; border-radius: 12px; padding: 20px; text-align: center; margin-bottom: 25px; }
+        .success-icon { font-size: 3em; }
+        .success-text { font-size: 1.3em; font-weight: 700; color: #2e7d32; margin-top: 8px; }
+        .ticket { background: white; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); overflow: hidden; }
+        .ticket-header { background: linear-gradient(135deg, #1a73e8, #0d47a1); color: white; padding: 25px; text-align: center; }
+        .ticket-number { font-size: 1.4em; font-weight: 700; letter-spacing: 2px; }
+        .ticket-body { padding: 25px; }
+        .route-display { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; padding: 20px; background: #f8f9fa; border-radius: 8px; }
+        .city { text-align: center; }
+        .city-name { font-size: 1.4em; font-weight: 700; color: #1a73e8; }
+        .city-time { font-size: 0.9em; color: #888; margin-top: 4px; }
+        .arrow { font-size: 2em; color: #1a73e8; }
+        .ticket-details { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .detail-item { display: flex; flex-direction: column; padding: 12px; background: #f8f9fa; border-radius: 8px; }
+        .detail-label { font-size: 0.8em; color: #888; margin-bottom: 4px; }
+        .detail-value { font-weight: 600; color: #333; }
+        .ticket-footer { padding: 20px 25px; border-top: 2px dashed #ddd; display: flex; justify-content: space-between; align-items: center; }
+        .price-display { font-size: 1.5em; font-weight: 700; color: #2e7d32; }
+        .status-badge { background: #e8f5e9; color: #2e7d32; padding: 6px 16px; border-radius: 20px; font-weight: 600; }
+        .actions { display: flex; gap: 10px; margin-top: 25px; }
+        .btn { flex: 1; padding: 12px; border: none; border-radius: 8px; font-size: 1em; font-weight: 600; cursor: pointer; text-align: center; text-decoration: none; display: block; }
+        .btn-primary { background: linear-gradient(135deg, #1a73e8, #0d47a1); color: white; }
+        .btn-secondary { background: #f0f4f8; color: #333; border: 2px solid #ddd; }
+    </style>
+</head>
+<body>
+    <header><h1>🚌 CloudBus</h1></header>
+    <nav>
+        <a href="/">🏠 Home</a>
+        <a href="/tickets">🎫 All Tickets</a>
+    </nav>
+    <div class="container">
+        <div class="success-banner">
+            <div class="success-icon">✅</div>
+            <div class="success-text">Booking Confirmed Successfully!</div>
+        </div>
+        <div class="ticket">
+            <div class="ticket-header">
+                <div>🎫 BUS PASS TICKET</div>
+                <div class="ticket-number">{{ ticket.ticket_number }}</div>
+            </div>
+            <div class="ticket-body">
+                <div class="route-display">
+                    <div class="city">
+                        <div class="city-name">{{ ticket.origin }}</div>
+                        <div class="city-time">🕐 {{ ticket.departure_time }}</div>
+                    </div>
+                    <div class="arrow">→</div>
+                    <div class="city">
+                        <div class="city-name">{{ ticket.destination }}</div>
+                        <div class="city-time">🕐 {{ ticket.arrival_time }}</div>
+                    </div>
+                </div>
+                <div class="ticket-details">
+                    <div class="detail-item">
+                        <span class="detail-label">👤 Passenger</span>
+                        <span class="detail-value">{{ ticket.passenger_name }}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">📧 Email</span>
+                        <span class="detail-value">{{ ticket.passenger_email }}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">💺 Seat Number</span>
+                        <span class="detail-value">Seat {{ ticket.seat_number }}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">📅 Booking Date</span>
+                        <span class="detail-value">{{ ticket.booking_date }}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="ticket-footer">
+                <div class="price-display">{{ ticket.price }} DZD</div>
+                <div class="status-badge">✅ {{ ticket.status }}</div>
+            </div>
+        </div>
+        <div class="actions">
+            <a href="/" class="btn btn-primary">🏠 Back to Home</a>
+            <a href="/tickets" class="btn btn-secondary">🎫 View All Tickets</a>
+        </div>
+    </div>
+</body>
+</html>
